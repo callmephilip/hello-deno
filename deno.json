@@ -1,8 +1,11 @@
 {
   "name": "@deno-playground/hello",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
-  "exports": "./mod.ts",
+  "exports": {
+    ".": "./mod.ts",
+    "./export": "./export.ts"
+  },
   "imports": {
     "zod": "npm:zod@^3.23.8"
   }
