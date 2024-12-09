@@ -1,7 +1,7 @@
 //source ./export.ipynb
 
 
-import { z } from "npm:zod";
+import { z } from "npm:zod@^3.23.8";
 import path from "node:path";
 
 const cellSchema = z.object({
@@ -20,7 +20,7 @@ const is_directive = (ln: string) : boolean => ln.replaceAll(" ", "").startsWith
 const is_cell_exportable = (cell: Cell) : boolean => cell.cell_type === "code" && cell.source.length > 0 && is_directive(cell.source[0])
   && cell.source[0].includes("export");
 
-export const exportNb = async (nb_path: string) => {
+export const exportNb = async (nb_path: string): Promise<void> => {
   const module_name = path.basename(nb_path).replace(".ipynb", ".ts");
   const nb = nbSchema.parse(JSON.parse(await Deno.readTextFile(nb_path)));
   const export_cells = nb.cells.filter(cell => is_cell_exportable(cell));
